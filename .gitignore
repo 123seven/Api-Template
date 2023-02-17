@@ -129,6 +129,8 @@ venv.bak/
 dmypy.json
 .idea/
 .DS_Store
+local.env
+test.env
 pro.env
 dev.env
 *.swp

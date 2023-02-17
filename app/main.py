@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.exceptions import RequestValidationError, HTTPException
+from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
@@ -8,8 +8,8 @@ from app.core.config import settings
 from app.core.exception import (
     ServiceException,
     http_exception_handler,
-    validation_exception_handler,
     service_exception_handler,
+    validation_exception_handler,
 )
 
 
@@ -35,7 +35,9 @@ def get_application():
 
     # exception handler
     application.add_exception_handler(HTTPException, http_exception_handler)
-    application.add_exception_handler(RequestValidationError, validation_exception_handler)
+    application.add_exception_handler(
+        RequestValidationError, validation_exception_handler
+    )
     application.add_exception_handler(ServiceException, service_exception_handler)
 
     # router
