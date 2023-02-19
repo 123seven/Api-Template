@@ -27,6 +27,8 @@ class Settings(BaseSettings):
         default="redis://user:pass@localhost:6379/1", description="Redis URL"
     )
 
+    CHAT_GPT_ACCESS_TOKEN: str = Field(default="", description="Redis URL")
+
     @validator(
         "BACKEND_CORS_ORIGINS", "CORS_ALLOWED_METHODS", "CORS_ALLOWED_HEADERS", pre=True
     )

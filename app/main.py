@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,6 +12,7 @@ from app.core.exception import (
     service_exception_handler,
     validation_exception_handler,
 )
+from app.tools.redis_client import init_redis
 
 
 def get_application():
@@ -32,6 +34,8 @@ def get_application():
         allow_methods=settings.CORS_ALLOWED_METHODS,
         allow_headers=settings.CORS_ALLOWED_HEADERS,
     )
+    # event handler
+    init_redis(application)
 
     # exception handler
     application.add_exception_handler(HTTPException, http_exception_handler)
@@ -47,3 +51,5 @@ def get_application():
 
 
 app = get_application()
+if __name__ == '__main__':
+    uvicorn.run('main:app', **{'host': '0.0.0.0', 'port': 8000, 'log_level': 'info'})

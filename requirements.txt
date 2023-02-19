@@ -3,6 +3,9 @@ uvicorn==0.12.2
 sqlmodel
 loguru
 orjson
+uuid
+redis
+edge_tts
 python-dotenv
 flake8
 mypy
