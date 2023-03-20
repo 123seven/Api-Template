@@ -13,7 +13,9 @@ from app.tools.tts import tts
 
 
 class ChatServices:
-    def __init__(self, session: Session, redis: Redis, background_tasks: BackgroundTasks):
+    def __init__(
+        self, session: Session, redis: Redis, background_tasks: BackgroundTasks
+    ):
         self.session = session
         self.bot = ChatBot(redis, settings.CHAT_GPT_ACCESS_TOKEN)
         self.tasks = background_tasks
@@ -23,7 +25,9 @@ class ChatServices:
         st = time.time()
         reply = await self.bot.ask(message)
 
-        logger.info(f"time: {int(time.time() - st)} seconds", )
+        logger.info(
+            f"time: {int(time.time() - st)} seconds",
+        )
         return SuccessResult(data={"reply": reply})
 
     async def ask_stream(self, message: str):
@@ -33,7 +37,7 @@ class ChatServices:
             if not self.bot.chat_conf:
                 self.bot.set_chat_conf(data)
 
-            yield data["message"][len(prev_text):]
+            yield data["message"][len(prev_text) :]
             prev_text = data["message"]
         yield f"[AUDIO_KEY]{audio_key}"
         # tts

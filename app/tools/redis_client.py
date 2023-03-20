@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Request
-
 import redis
+from fastapi import FastAPI, Request
 from redis import ConnectionPool
 
 from app.core.config import settings
@@ -13,8 +12,10 @@ def init_redis(app: FastAPI, add_exception_handlers: bool = False) -> None:
 
     def get_redis_pool() -> redis.ConnectionPool:
         return ConnectionPool(
-            host=settings.REDIS_DSN.host, port=settings.REDIS_DSN.port,
-            encoding="utf-8", decode_responses=True
+            host=settings.REDIS_DSN.host,
+            port=settings.REDIS_DSN.port,
+            encoding="utf-8",
+            decode_responses=True,
         )
 
     @app.on_event("startup")
