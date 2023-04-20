@@ -12,11 +12,9 @@ def init_redis(app: FastAPI, add_exception_handlers: bool = False) -> None:
 
     def get_redis_pool() -> redis.ConnectionPool:
         return ConnectionPool(
-            host=settings.REDIS_DSN.host,
-            port=settings.REDIS_DSN.port,
             encoding="utf-8",
             decode_responses=True,
-        )
+        ).from_url(settings.REDIS_DSN)
 
     @app.on_event("startup")
     async def startup_redis_event():
